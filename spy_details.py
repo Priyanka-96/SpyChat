@@ -20,7 +20,7 @@ class Chat:
 
 
 
-spy = Spy('priyanka verma', 'Miss.', 20, 4.7)
+spy = Spy('Priyanka verma', 'Miss.', 20, 4.7)
 
 friend_one = Spy('Simran', 'Miss.',  21,4.9)
 friend_two = Spy('Isha kansal', 'Miss.', 20,5)
