@@ -76,7 +76,6 @@ def details():
     spy.name = name
     if name_validation(spy.name):       #calling name_validation function to check if the entered name is valid or not
         spy.salutation = raw_input("what do we call you 'MS.' or 'MR.' or 'DR.' or 'ER.'or 'MRS.'")
-        list = ["DR.", "MR.", "MS.","ER.","MRS."]       #storing salutations for spy
 
         if spy.salutation.upper() in list:        #checking if the entered salutation lies in list or not
             spy.name = spy.salutation + " " + spy.name
@@ -149,7 +148,6 @@ def add_friend():
     new_friend.name = raw_input("Please add your friend's name: ")
     if name_validation(new_friend.name):        #calling name_validation function to check if the entered name is valid or not
         new_friend.salutation= raw_input("What are they? MS. or MR. or DR. or ER. or MRS.? ")
-        list = ["DR.", "MR.", "MS.","ER.","MRS."]       #storing salutations for friend
 
         if new_friend.salutation.upper() in list:       #checking if the entered salutation lies in list or not
             new_friend.name = new_friend.salutation + " " + new_friend.name
@@ -246,9 +244,9 @@ def read_message():
             if len(secret_text)>0:      #if there is secret msg in image only then this if true
                 new_chat= Chat(secret_text,False)   #Chat class called and secret text stored
                 friends[sender].chats.append(new_chat)      #append the message
-                words = secret_text.split(" ")
-                num=len(words)
-                print num
+                words = secret_text.split()
+                friends[sender].average = (float(friends[sender].average * len(friends[sender].chats) + len(words))) / (len(friends[sender].chats) + 1)
+                print "Average word count is: %.2f" % (friends[sender].average)
                 print colored("Your secret message has been saved!","green")    #print when msg saved
             else:
                 print colored("there is no secret message in this image","red") #print when len of secret msg < 0
@@ -320,7 +318,8 @@ def start():
 
 
 
-STATUS_MESSAGE=['busy','Available','Cant talk! message only.']          #listing containing initial status messages
+STATUS_MESSAGE=['busy','Available','Cant talk! message only.']      #listing containing initial status messages
+list = ["DR.", "MR.", "MS.","ER.","MRS."]       #storing salutations for spy in list
 print colored('lets get started with the software of hidding text inside an image',"green")
 start()  #calling start function
 
