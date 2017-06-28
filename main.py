@@ -91,15 +91,15 @@ def details():
                     start_chat(spy)
             else:
                 print colored("enter valid age!", "red")
-                details()
+                start()
 
         else:
             print colored("Enter valid salutation!", 'red')
-            details()
+            start()
 
     else:
         print colored("enter valid name", "red")
-        details()
+        start()
 
 
 #now the below function named add_status helps user to add the status or choose the old status
@@ -244,10 +244,9 @@ def read_message(i=[0]):
                 words = secret_text.split(" ")
                 num=len(words)
                 print num
-                i[0] += 1  # mutable variable get evaluated ONCE
+                i[0] += 1
                 print i[0]
-                if i==2:
-                    num=num
+
 
 
                 print "Your secret message has been saved!"
@@ -314,10 +313,8 @@ def start_chat(spy):
 
 
 STATUS_MESSAGE=['busy','Available','Cant talk! message only.']
-print 'lets get started with the software of hidding text inside an image'
-valid = True
-while valid:
 
+def start():
     question = raw_input('do you want to continue as %s %s  ? Y/N' % (spy.salutation, spy.name))
     if question.upper()=='Y':
         valid=False
@@ -328,6 +325,10 @@ while valid:
         details()
     else:
         print colored("enter either Y or N! ","red")
+
+print colored('lets get started with the software of hidding text inside an image',"green")
+start()
+
 
 
 
