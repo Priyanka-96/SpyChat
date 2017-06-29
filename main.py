@@ -29,22 +29,22 @@ def name_validation(name):
 #this fucntion check the validity of spy age
 def age_validation():
     age = raw_input("Enter your age")           #getting age from spy
-    if  age.isspace()==True and age.isdigit==False and len(age)==0 : #check if spy enter any alphabet or spaces or if spy
-        print colored('Enter valid age','red')
+    if  age.isspace()==True and age.isdigit==False and len(age)==0 :    #check if spy enter any alphabet or spaces or if spy dont enter the age
+        print colored('Enter valid age','red')              #print enter valid age if "if" is true
     else:
-        return age
+        return age   #returning valid age
 
 
 #function for checking age of friend
 def friend_age_validation():
 
-    age = raw_input("Enter friend's age")
-    if  age.isspace()==True and age.isdigit==False and len(age)==0 :
-        print colored('Enter valid age','red')
+    age = raw_input("Enter friend's age")       #getting age from spy
+    if  age.isspace()==True and age.isdigit==False and len(age)==0 :        #check if spy enter any alphabet or spaces or if spy dont enter the age
+        print colored('Enter valid age','red')      #print enter valid age if "if" is true
     else:
-        return age     #return age if no condition satisfied
+        return age     #return valid age
 
-
+#checks whether the rating lie between 1-5 and printing particular message corresponding to specific rating
 def check_rating_value(rating):
     if (rating > 5):  # if rating greater than 5 then this spy should not be accepted
         print colored("Enter rating between 1-5", "red")
@@ -69,21 +69,21 @@ def check_rating_value(rating):
         return rating  # returning the rating of spy
 
 
-#It checks the rating of spy and print the particular message corresp0onding rating
+#it cehcks whether the rating is valid or not(it should be float)
 def spy_rating_check():
 
-    rating = raw_input("Enter Rating")
-    if  rating.isspace()==True and rating.isdigit==False and len(rating)==0 :
-        print colored("enter valid rating!","red")
+    rating = raw_input("Enter Rating") #taking rating from spy
+    if  rating.isspace()==True and rating.isdigit==False and len(rating)==0 :  #check if spy enter any alphabet or spaces or if spy dont enter the rating
+        print colored("enter valid rating!","red")   #print enter valid rating if "if" is true
 
     else:
-        return rating
+        return rating  #return valid rating
 
 
 #fucntion getting the details of new spy
 def details():
     spy = Spy('', '', 0, 0.0)       #object of Spy class created in spy_details.py file
-    name = raw_input("Welcome! write your name!")
+    name = raw_input("Welcome! write your name!")  #getting name of spy
     spy.name = name
     if name_validation(spy.name):       #calling name_validation function to check if the entered name is valid or not
         spy.salutation = raw_input("what do we call you 'MS.' or 'MR.' or 'DR.' or 'ER.'or 'MRS.'")
@@ -93,27 +93,27 @@ def details():
 
             age=age_validation()        #calling age validation functiion n see if correct age is entered or not
             try:
-                spy.age= int(age)
+                spy.age= int(age)   #converting age of spy to int and storing in object of class Spy
             except ValueError:
                 pass
-            if spy.age > 12 and spy.age < 50:
+            if spy.age > 12 and spy.age < 50:   #checking if age of spy is >12 and <50
                 print colored("NOTE :) THE RATING SHOULD BE IN BETWEEN 1-5 ", "blue")
-                rate = spy_rating_check()         #calling spy_rating_check method to see if rating in between 1-5
+                rate = spy_rating_check()         #calling spy_rating_check method to see if rating is valid means it dont have any alphabet, spaces etc
                 try:
-                    spy.rating = float(rate)
+                    spy.rating = float(rate)   #converting rating of spy to float and storing in object of class Spy
                 except ValueError:
                     pass
-                ratee=check_rating_value(spy.rating)
+                ratee=check_rating_value(spy.rating)  #check_rate_value fuction check if rating between 1- 5
                 if ratee == None:                #rate not valid then error print
                     print colored("Try again!:(","red")
-                    start()
+                    start()     #going to start
                 else:
-                    spy.is_online = True
-                    print colored("Sucessfully registered", "green")
+                    spy.is_online = True         #spy is online = true
+                    print colored("Sucessfully registered", "green")  #sucess message
                     start_chat(spy)                      #authorization complete n now spy cn go to start_chat functiion
             else:
                 print colored("enter valid age","red")
-                start()
+                start()     #when age not valid calling start function n asking if you want to continue with old spy
         else:
             print colored("Enter valid salutation!", 'red')
             start()      #when salutation not valid calling start function n asking if you want to continue with old spy
@@ -165,7 +165,7 @@ def add_status(current_status_message):
 def add_friend():
     new_friend = Spy('','',0,0.0)       #object of Spy class created in spy_details.py file
 
-    new_friend.name = raw_input("Please add your friend's name: ")
+    new_friend.name = raw_input("Please add your friend's name: ")  #getting name of friend
     if name_validation(new_friend.name):        #calling name_validation function to check if the entered name is valid or not
         new_friend.salutation= raw_input("What are they? MS. or MR. or DR. or ER. or MRS.? ")
 
@@ -173,22 +173,22 @@ def add_friend():
             new_friend.name = new_friend.salutation + " " + new_friend.name
             age = friend_age_validation()  # calling age validation functiion n see if correct age is entered or not
             try:
-                new_friend.age = int(age)
+                new_friend.age = int(age)       #converting age of friend to int and storing in object of class Spy
             except ValueError:
                 pass
 
-            if new_friend.age>12  :   #calling friend age validation functiion n see if correct age is entered or not
-                print colored("NOTE Friend rating should be greater than spy rating","blue")
-                rate = spy_rating_check()  # calling spy_rating_check method to see if rating in between 1-5
+            if new_friend.age>12  :   #checking if age of freind is >12
+                print colored("NOTE :) Friend rating should be greater than spy rating and it should be in between 1-5 only ","blue")
+                rate = spy_rating_check()  #calling spy_rating_check method to see if rating is valid means it dont have any alphabet, spaces etc
                 try:
-                    new_friend.rating= float(rate)
+                    new_friend.rating= float(rate)          #converting rating of friend to float and storing in object of class Spy
                 except ValueError:
                     pass
-                ratee = check_rating_value(new_friend.rating)
-                if ratee == None:
+                ratee = check_rating_value(new_friend.rating)   #check_rating_value fucntion check if rating between 1-5
+                if ratee == None:       #rate not valid then error print
 
                     print colored("Try again!:(","red")
-                    start()
+                    start()         #process strt from the start asking  if we want to continue as current or add new spy
 
                 else:
                     if new_friend.rating >= spy.rating :            #if rating of friend added is more than rating of spy only  then the friend should be accepted
@@ -272,10 +272,10 @@ def read_message():
             secret_text = Steganography.decode(output_path)  #decode the txt from image
             if len(secret_text)>0:      #if there is secret msg in image only then this if true
                 new_chat= Chat(secret_text,False)   #Chat class called and secret text stored
-                friends[sender].chats.append(new_chat)      #append the message
-                words = secret_text.split()
-                friends[sender].average = (float(friends[sender].average * len(friends[sender].chats) + len(words))) / (len(friends[sender].chats) + 1)
-                print colored("Average word count is: %.2f","blue") % (friends[sender].average)
+                words = secret_text.split()  #creating list of words of secret message
+                friends[sender].average = (float(friends[sender].average * len(friends[sender].chats) + len(words))) / (len(friends[sender].chats) + 1)   #calculating average
+                print colored("Average word count is: %.2f","blue") % (friends[sender].average)  #printing average
+                friends[sender].chats.append(new_chat)  # append the message
                 print colored("Your secret message has been saved!","green")    #print when msg saved
             else:
                 print colored("there is no secret message in this image","red") #print when len of secret msg < 0
@@ -342,7 +342,7 @@ def start():
         details()       #if spy want to add new spy the details() is called and details of new spy is input in that function
     else:
         print colored("enter either Y or N! ","red") #if spy enter anything except Y or N then it print this
-        start()
+        start()     #recussion....! it again callse itself and ask if we wan to continue as ourself or add new one
 
 
 STATUS_MESSAGE=['busy','Available','Cant talk! message only.']      #listing containing initial status messages
