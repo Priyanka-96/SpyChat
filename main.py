@@ -28,8 +28,8 @@ def name_validation(name):
 
 #this fucntion check the validity of spy age
 def age_validation():
-    age = raw_input("Enter your age")
-    if  age.isspace()==True and age.isdigit==False and len(age)==0 :
+    age = raw_input("Enter your age")           #getting age from spy
+    if  age.isspace()==True and age.isdigit==False and len(age)==0 : #check if spy enter any alphabet or spaces or if spy
         print colored('Enter valid age','red')
     else:
         return age
@@ -43,6 +43,7 @@ def friend_age_validation():
         print colored('Enter valid age','red')
     else:
         return age     #return age if no condition satisfied
+
 
 def check_rating_value(rating):
     if (rating > 5):  # if rating greater than 5 then this spy should not be accepted
@@ -214,7 +215,7 @@ def select_a_friend():
         print '%d. %s aged %d with rating %.2f is online' % (item_number +1, friend.name, friend.age,friend.rating)
         item_number = item_number + 1
 
-    friend_choice =( raw_input("Choose from your friends"))
+    friend_choice = raw_input("Choose from your friends")
     if len(friend_choice) >0 and friend_choice.isdigit() :      #check if the length if friend choosen is greater than zero and it should be digit
         friend_choice=int(friend_choice)            #converting string to int
         if friend_choice>0 and friend_choice< item_number+1:        #check if the choosen friend lie in the list
@@ -246,7 +247,7 @@ def send_message():
                 Steganography.encode(original_image, output_path, text)     #encoding the image with text
             if len(text)>0 and len(text)<100 and text.isspace()==False:  #check if len of text between 1 to 100 and it shouldnt be only spaces
                 Steganography.encode(original_image, output_path, text)  #encoding the image with text
-                new_chat= Chat(text,True)       #calling Chat class
+                new_chat = Chat(text,True)       #calling Chat class
                 friends[friend_choice].chats.append(new_chat)  #appending in chats in friends list
                 print colored("Your secret message image is ready!","green")
             else:
@@ -290,7 +291,7 @@ def read_chat_history():
   else:             #if correct friend choosen then else part run of this function
     if len(friends[read_for].chats)>0:      #will work if there is any message in chats
       for chat in friends[read_for].chats:      #fetcing chats from friends
-        if chat.sent_by_me:         #check if send_by_me is true
+        if chat.sent_by_me :         #check if send_by_me is true
           print colored('[%s] %s %s',"blue") % (chat.time.strftime("%d %B %Y"), colored('You said:','red'), chat.message)     #printing time and chat emssage send by you
         else:       #check if send_by_me is tru
           print colored('[%s] %s said: %s','blue') % (chat.time.strftime("%d %B %Y"), colored(friends[read_for].name,"red"), chat.message)      #printing time and chat emssage send by spy
@@ -340,8 +341,8 @@ def start():
     elif question.upper()=='N':
         details()       #if spy want to add new spy the details() is called and details of new spy is input in that function
     else:
-        print colored("enter either Y or N! ","red")  #if spy enter anything except Y or N then it print this
-
+        print colored("enter either Y or N! ","red") #if spy enter anything except Y or N then it print this
+        start()
 
 
 STATUS_MESSAGE=['busy','Available','Cant talk! message only.']      #listing containing initial status messages
