@@ -27,46 +27,56 @@ def name_validation(name):
 
 
 #this fucntion check the validity of spy age
-def age_validation(age):
-    if age > 12 and age <50: #age of spy should be in between 12 and 50
-        return True     #if conditon statisfied return TRUE
+def age_validation():
+    age = raw_input("Enter your age")
+    if  age.isspace()==True and age.isdigit==False and len(age)==0 :
+        print colored('Enter valid age','red')
     else:
-        return False  #return false if no condition satisfied
+        return age
 
 
 #function for checking age of friend
-def friend_age_validation(age):
-    if age > 12: #age of added friend should be greater than 12
-        return True     #if conditon statisfied return TRUE
+def friend_age_validation():
+
+    age = raw_input("Enter friend's age")
+    if  age.isspace()==True and age.isdigit==False and len(age)==0 :
+        print colored('Enter valid age','red')
     else:
-        return False       #return false if no condition satisfied
+        return age     #return age if no condition satisfied
 
-
-#It checks the rating of spy and print the particular message corresponding rating
-def spy_rating_check(rating):
-
-    if (rating >5):   #if rating greater than 5 then this spy should not be accepted
-        print colored("Enter rating between 1-5","red")
+def check_rating_value(rating):
+    if (rating > 5):  # if rating greater than 5 then this spy should not be accepted
+        print colored("Enter rating between 1-5", "red")
         return None
-    elif (rating >4.5 and rating <=5):      #if rating between 4.5 and 5 print specific messgae
-        print colored("You are the best spy","green")
-        return rating           #returning the rating of spy
-    elif(rating>4 and rating<=4.5):          #if rating between 4 and 4.5 print specific messgae
-        print colored("You are a great spy","green")
-        return rating        #returning the rating of spy
-    elif (rating >3.5 and rating<=4):       #if rating between 3.5 and 4 print specific messgae
-        print colored("You are a good spy","green")
-        return rating        #returning the rating of spy
-    elif (rating >3 and rating<=3.5):       #if rating between 3 and 3.5 print specific messgae
-        print colored("You are a average spy","green")
-        return rating        #returning the rating of spy
-    elif(rating>2.5 and rating<=3):     #if rating between 2.5 and 3 print specific messgae
-        print colored("You can a improve yourself","green")
-        return rating        #returning the rating of spy
-    elif(rating>=1 and rating <=2.5):       #if rating between 1.5 and 2.5 print specific messgae
-        print colored("try to work on your skills","green")
-        return rating         #returning the rating of spy
+    elif (rating > 4.5 and rating <= 5):  # if rating between 4.5 and 5 print specific messgae
+        print colored("You are the best spy", "green")
+        return rating  # returning the rating of spy
+    elif (rating > 4 and rating <= 4.5):  # if rating between 4 and 4.5 print specific messgae
+        print colored("You are a great spy", "green")
+        return rating  # returning the rating of spy
+    elif (rating > 3.5 and rating <= 4):  # if rating between 3.5 and 4 print specific messgae
+        print colored("You are a good spy", "green")
+        return rating  # returning the rating of spy
+    elif (rating > 3 and rating <= 3.5):  # if rating between 3 and 3.5 print specific messgae
+        print colored("You are a average spy", "green")
+        return rating  # returning the rating of spy
+    elif (rating > 2.5 and rating <= 3):  # if rating between 2.5 and 3 print specific messgae
+        print colored("You can a improve yourself", "green")
+        return rating  # returning the rating of spy
+    elif (rating >= 1 and rating <= 2.5):  # if rating between 1.5 and 2.5 print specific messgae
+        print colored("try to work on your skills", "green")
+        return rating  # returning the rating of spy
 
+
+#It checks the rating of spy and print the particular message corresp0onding rating
+def spy_rating_check():
+
+    rating = raw_input("Enter Rating")
+    if  rating.isspace()==True and rating.isdigit==False and len(rating)==0 :
+        print colored("enter valid rating!","red")
+
+    else:
+        return rating
 
 
 #fucntion getting the details of new spy
@@ -79,21 +89,30 @@ def details():
 
         if spy.salutation.upper() in list:        #checking if the entered salutation lies in list or not
             spy.name = spy.salutation + " " + spy.name
-            spy.age = int(raw_input("whats your age?"))
-            if age_validation(spy.age):     #calling age validation functiion n see if correct age is entered or not
+
+            age=age_validation()        #calling age validation functiion n see if correct age is entered or not
+            try:
+                spy.age= int(age)
+            except ValueError:
+                pass
+            if spy.age > 12 and spy.age < 50:
                 print colored("NOTE :) THE RATING SHOULD BE IN BETWEEN 1-5 ", "blue")
-                spy.rating = float(raw_input("Whats your rating?"))
-                rate = spy_rating_check(spy.rating)         #calling spy_rating_check method to see if rating in between 1-5
-                if rate == None:                #rate not valid then error print
+                rate = spy_rating_check()         #calling spy_rating_check method to see if rating in between 1-5
+                try:
+                    spy.rating = float(rate)
+                except ValueError:
+                    pass
+                ratee=check_rating_value(spy.rating)
+                if ratee == None:                #rate not valid then error print
                     print colored("Try again!:(","red")
+                    start()
                 else:
                     spy.is_online = True
                     print colored("Sucessfully registered", "green")
                     start_chat(spy)                      #authorization complete n now spy cn go to start_chat functiion
             else:
-                print colored("enter valid age!", "red")
-                start()             #when age not valid calling start function n asking if you want to continue with old spy
-
+                print colored("enter valid age","red")
+                start()
         else:
             print colored("Enter valid salutation!", 'red')
             start()      #when salutation not valid calling start function n asking if you want to continue with old spy
@@ -132,8 +151,8 @@ def add_status(current_status_message):
             print colored("You didn't choose the correct status","red")
     else:
         print colored('The option you chose is not valid! Press either Y or N.',"red")
-    if current_status_message:          #check if curren message is true
-        print colored('Your updated status message is: %s',"green") % (current_status_message)  #print updated message
+    if updated_status_message:          #check if curren message is true
+        print colored('Your updated status message is: %s',"green") % (updated_status_message)  #print updated message
     else:
         print colored('You don\'t have any current status update',"red")
     return updated_status_message     #return updated_status_messgae
@@ -151,15 +170,24 @@ def add_friend():
 
         if new_friend.salutation.upper() in list:       #checking if the entered salutation lies in list or not
             new_friend.name = new_friend.salutation + " " + new_friend.name
-            new_friend.age = raw_input("Age?")
-            new_friend.age = int(new_friend.age)
-            if friend_age_validation(new_friend.age):       #calling friend age validation functiion n see if correct age is entered or not
-                print "friend rating should be greater than spy rating"
-                new_friend.rating= raw_input("Spy's Friend rating?")
-                new_friend.rating = float(new_friend.rating)
-                rate = spy_rating_check(new_friend.rating)            #calling spy_rating_check method to see if rating in between 1-5
-                if rate == None:
+            age = friend_age_validation()  # calling age validation functiion n see if correct age is entered or not
+            try:
+                new_friend.age = int(age)
+            except ValueError:
+                pass
+
+            if new_friend.age>12  :   #calling friend age validation functiion n see if correct age is entered or not
+                print colored("NOTE Friend rating should be greater than spy rating","blue")
+                rate = spy_rating_check()  # calling spy_rating_check method to see if rating in between 1-5
+                try:
+                    new_friend.rating= float(rate)
+                except ValueError:
+                    pass
+                ratee = check_rating_value(new_friend.rating)
+                if ratee == None:
+
                     print colored("Try again!:(","red")
+                    start()
 
                 else:
                     if new_friend.rating >= spy.rating :            #if rating of friend added is more than rating of spy only  then the friend should be accepted
@@ -193,10 +221,10 @@ def select_a_friend():
             friend_choice_position = int(friend_choice) - 1         #index of friend_choice stored in friend_choice_position
             return friend_choice_position       #returned index
         else:
-            print "Choose friends between (1 - %d)"%item_number #tells that the friend choosen should be in between range
+            print colored("Choose friends between (1 - %d)","red") %item_number #tells that the friend choosen should be in between range
             return None
     else:
-        print "Choose number between (1 - %d)" % item_number    #tells that the friend choosen should be in between range
+        print colored("Choose number between (1 - %d)","red") % item_number    #tells that the friend choosen should be in between range
         return None
 
 
@@ -205,7 +233,7 @@ def select_a_friend():
 def send_message():
     friend_choice = select_a_friend()       #calling the select_a_friend() fucntion and getting the choosen friend
     if friend_choice==None:  #if wrong friend choosen then display try again
-        print "Try again :("
+        print colored("Try again :(","blue")
     else:       #if correct friend choosen then else part run of this function
 
         original_image = raw_input("What is the name of the image?")     #ask name of file
@@ -220,7 +248,7 @@ def send_message():
                 Steganography.encode(original_image, output_path, text)  #encoding the image with text
                 new_chat= Chat(text,True)       #calling Chat class
                 friends[friend_choice].chats.append(new_chat)  #appending in chats in friends list
-                print "Your secret message image is ready!"
+                print colored("Your secret message image is ready!","green")
             else:
                 if len(text)>100:  #check if spy is talkitive by seeing if he speak more tha 100 words
                     print colored(" You are speaking alot! We are removing you from chat list","red")
@@ -234,7 +262,7 @@ def send_message():
 def read_message():
     sender = select_a_friend()      #calling the select_a_friend() fucntion and getting the choosen friend
     if sender==None:
-        print "Try again :("        #if wrong friend choosen then display try again
+        print colored("Try again :(","red")        #if wrong friend choosen then display try again
     else:           #if correct friend choosen then else part run of this function
 
         output_path = raw_input("What is the name of the file?")     #ask name of file
@@ -246,7 +274,7 @@ def read_message():
                 friends[sender].chats.append(new_chat)      #append the message
                 words = secret_text.split()
                 friends[sender].average = (float(friends[sender].average * len(friends[sender].chats) + len(words))) / (len(friends[sender].chats) + 1)
-                print "Average word count is: %.2f" % (friends[sender].average)
+                print colored("Average word count is: %.2f","blue") % (friends[sender].average)
                 print colored("Your secret message has been saved!","green")    #print when msg saved
             else:
                 print colored("there is no secret message in this image","red") #print when len of secret msg < 0
@@ -258,7 +286,7 @@ def read_message():
 def read_chat_history():
   read_for = select_a_friend()      #calling the select_a_friend() fucntion and getting the choosen friend
   if read_for== None:
-      print "Try again :("          #if wrong friend choosen then display try again
+      print colored("Try again :(","red")          #if wrong friend choosen then display try again
   else:             #if correct friend choosen then else part run of this function
     if len(friends[read_for].chats)>0:      #will work if there is any message in chats
       for chat in friends[read_for].chats:      #fetcing chats from friends
@@ -269,40 +297,38 @@ def read_chat_history():
 
 
 
-#below is a function which iontain the menu from where user choose what he want to do in chatting app.
+#below is a function which contain the menu from where user choose what he want to do in chatting app.
 def start_chat(spy):
     current_status_message=None
     spy.name= spy.salutation + " " + spy.name  #concating the name of spy and its salutation into name
-    if age_validation(spy.age):  #age_validation fucntion is called to see id spy age is valid or not
-        print "Authentication complete. Welcome " + spy.name + " age: " + str(spy.age) + " and rating of: " + str(spy.rating)  #printing welcome message
-        show_menu = True  #taking a variable and setting it to true
-        while show_menu:
-            #putting the menu item which we want to use in chatApp
-            menu_choices = "What do you want to do? \n 1. Add a status update \n 2. Add a friend \n 3. Send a secret message \n 4. Read a secret message \n 5. Read Chats from a user \n 6. Close Application \n "
-            #letting spy decide which menu item to choose
-            menu_choice = raw_input(menu_choices)
+      #age_validation fucntion is called to see id spy age is valid or not
+    print "Authentication complete. Welcome " + spy.name + " age: " + str(spy.age) + " and rating of: " + str(spy.rating)  #printing welcome message
+    show_menu = True  #taking a variable and setting it to true
+    while show_menu:
+        #putting the menu item which we want to use in chatApp
+        menu_choices = "What do you want to do? \n 1. Add a status update \n 2. Add a friend \n 3. Send a secret message \n 4. Read a secret message \n 5. Read Chats from a user \n 6. Close Application \n "
+        #letting spy decide which menu item to choose
+        menu_choice = raw_input(menu_choices)
 
-            if len(menu_choice) > 0:        #if len of menu choice is greater than 0 then only it will work
-                menu_choice = int(menu_choice)      #converting the menu choice to int
+        if len(menu_choice) > 0:        #if len of menu choice is greater than 0 then only it will work
+            menu_choice = int(menu_choice)      #converting the menu choice to int
 
-                if menu_choice == 1:        #if menu choice is 1 then spy will be able to add or update status
-                    current_status_message = add_status(current_status_message)  #calling add_status function and adding or updating a status
-                elif menu_choice == 2:            #if menu choice is 2 then spy will be able to add new friends
-                    number_of_friends = add_friend()      #calling the add_friend() function and storing the no od freinds returned by function
-                    print 'Currently You have %d friends' % (number_of_friends)     #prining no of friends
-                elif menu_choice == 3:        #if menu choice is 3 then spy will be able to send encoded message
-                    send_message()          #calling send_message() function
-                elif menu_choice == 4:    #if menu choice is 4 then spy will be able to decrypt and read the encoded message
-                     read_message()     #calling read_message() function
-                elif menu_choice ==5:    #if menu choice is 5 then spy will be able to read chat history
-                     read_chat_history()        #calling read_chat_history() fucntion
-                elif menu_choice==6:          #if menu choice is 1 then spy will be able to exit application
-                     show_menu = False          #changing the value of show_menu from True to False
-                else:
-                    print colored("Please enter a valid number from menu!","red")       #enter valid choice of menu
+            if menu_choice == 1:        #if menu choice is 1 then spy will be able to add or update status
+                current_status_message = add_status(current_status_message)  #calling add_status function and adding or updating a status
+            elif menu_choice == 2:            #if menu choice is 2 then spy will be able to add new friends
+                number_of_friends = add_friend()      #calling the add_friend() function and storing the no od freinds returned by function
+                print 'Currently You have %d friends' % (number_of_friends)     #prining no of friends
+            elif menu_choice == 3:        #if menu choice is 3 then spy will be able to send encoded message
+                send_message()          #calling send_message() function
+            elif menu_choice == 4:    #if menu choice is 4 then spy will be able to decrypt and read the encoded message
+                 read_message()     #calling read_message() function
+            elif menu_choice ==5:    #if menu choice is 5 then spy will be able to read chat history
+                 read_chat_history()        #calling read_chat_history() fucntion
+            elif menu_choice==6:          #if menu choice is 1 then spy will be able to exit application
+                 show_menu = False          #changing the value of show_menu from True to False
+            else:
+                print colored("Please enter a valid number from menu!","red")       #enter valid choice of menu
 
-    else:
-        print colored('Sorry you are not of the correct age to be a spy',"red")  #enter correct age
 
 
 #function which will ask if you want to continue with the same name or you want new spy to acess thhis chatting app
